@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+        <meta name="renderer" content="webkit"/>
+        <meta name="force-rendering" content="webkit"/>
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>民呼无为 | MHWW</title>
+     <link rel="icon" href="https://teahousegroup.github.io/images/avatar.png">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css"/>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
+        <style>
+        .flex-grow {
+          flex-grow: 1;
+        }  
+.el-menu{
+    background: rgba(255,255,255,.7);
+    border: 0;
+    backdrop-filter: blur(25px);
+}
+html{
+    width:100%;
+    height:100%
+}
+body{
+    background: url(https://raw.githubusercontent.com/teahousegroup/assets/main/image/teah.png) no-repeat;
+    background-size: 100% 100%
+}
+.welcome{
+    height:80px;
+    line-height: 80px;
+    position: relative;
+    top:100px;
+}
+.text{
+    height:80px;
+    line-height: 80px;
+    position: relative;
+    top:100px;
+}
+.btn{
+    position: relative;
+    top: 135px;
+}
+.qacontainer{
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+}
+        </style>
+</head>
+<body class="mdui-theme-primary-teal mdui-theme-accent-green">
+    <div id="app">
+        <el-menu
+        :default-active="('1')"
+        class="el-menu-demo"
+        mode="horizontal"
+        :ellipsis="false"
+        >
+        <el-menu-item index="0" style="color:#000; opacity: 0.55; font-size: 1.66em">民呼无为</el-menu-item>
+                <div class="flex-grow"></div>
+        </el-menu>
+        <div class="welcome">
+        <div class="mdui-typo" style="text-align:center">
+          <h2 style="color:rgb(255, 255, 255);">欢迎来到民呼无为政务反馈平台</h2>
+          <h4 style="color:rgb(255, 255, 255);">12345 在线统一政务咨询投诉举报平台</h4>
+          </div>
+      </div>
+        <div class="btn" style="text-align:center">
+            <a href="/newticket" class="el-button el-button--large el-button--primary" style="text-decoration:none"><i class="mdui-icon material-icons">add</i> 发布反馈</a>
+            <a href="/myticket" class="el-button el-button--large" style="text-decoration:none"><i class="mdui-icon material-icons">edit</i> 我的反馈</a>
+            <a href="/ticket" class="el-button el-button--large" style="text-decoration:none"><i class="mdui-icon material-icons">check</i> 反馈广场</a>
+    </div>
+  </div>
+</div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+<script src="../static/js/jquery-prod.js"></script>
+<script src="../static/js/index.js"></script>
+<script>
+  const input = Vue.ref('')
+  const App = {
+    input
+  };
+  const app = Vue.createApp(App);
+  app.use(ElementPlus);
+  app.mount("#app");
+</script>
+</html>

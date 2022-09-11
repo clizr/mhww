@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+        <meta name="renderer" content="webkit"/>
+        <meta name="force-rendering" content="webkit"/>
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>发布反馈 | 民呼无为 MHWW</title>
+     <link rel="icon" href="https://teahousegroup.github.io/images/avatar.png">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css"/>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
+    <style>
+        .flex-grow {
+          flex-grow: 1;
+        }  
+        .el-page-header{
+    margin-left:10px;
+    margin-top:20px;
+}
+.mdui-textfield{
+    margin-left:20px;
+    max-width:40%
+}
+.alert{
+    margin-top: 10px;
+    max-width: 70%;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+.el-button{
+    margin:20px 30px;
+}
+    </style>
+    </head>
+            <body class="mdui-theme-primary-teal mdui-theme-accent-green">
+                <div id="app">
+                    <el-menu
+                    :default-active="('1')"
+                    class="el-menu-demo"
+                    mode="horizontal"
+                    :ellipsis="false">
+                    <el-menu-item index="0" style="color:#000; opacity: 0.55; font-size: 1.66em">民呼无为</el-menu-item>
+                            <div class="flex-grow"></div>
+                    </el-menu>
+                    <el-page-header content="发布反馈">
+                    <div style="padding: 10px;">
+                        <div class="mdui-textfield mdui-textfield-floating-label">
+                          <label class="mdui-textfield-label">标题</label>
+                          <input class="mdui-textfield-input" type="text"/>
+                        </div>
+                          <div class="mdui-textfield mdui-textfield-floating-label">
+                            <label class="mdui-textfield-label">内容</label>
+                            <textarea class="mdui-textfield-input"></textarea>
+                          </div>
+                          <div id="image">
+                          </div>
+                          <el-button type="success" id="add">上传图片</el-button>
+                          <el-button type="primary" id="submit">确定以发布反馈</el-button>
+                      </div>
+                  </div>
+              </body>
+              <script src="https://cdn.jsdelivr.net/npm/element-plus"></script>
+              <script type="text/typescript">
+              const goBack = () => {
+                console.log('go back')
+                window.location = '/newticket/'
+              }
+              </script>
+              <script>
+              const input = Vue.ref('')
+              const App = {
+                input
+              };
+              const app = Vue.createApp(App);
+              app.use(ElementPlus);
+              app.mount("#app");
+              </script>
+              <script>
+              </script>
+              <script type="text/typescript" setup>
+              </script>
+              <style>
+              .flex-grow {
+                flex-grow: 1;
+              }
+              </style>
+              <script>
+              var submitbtn = document.getElementById('submit')
+              var inputs = document.getElementsByClassName('mdui-textfield-input')
+              var addimage = document.getElementById('add')
+              var imageContainer = document.getElementById('image')
+              var imageLinks = document.getElementsByClassName('image-link')
+              var imageList = []
+              submitbtn.onclick = function(){
+                  for (var i=0;i<imageLinks.length;i++){
+                          imageList.push(imageLinks[i].value)
+                          console.log(imageList)
+                  }
+                  var data = {'title':inputs[0].value,'content':inputs[1].value,'images':imageList}
+                  $('#submit').attr('loading','true')
+                  $('#submit').attr('disabled','true')
+                  console.log(data)
+                  var loadingservice = ElementPlus.ElLoading.service({lock: true,text: '正在反馈中，因网络波动问题，可能提交较慢。'})
+                  $.post('/api/ticket/new',data,function(data){
+                      if (data['code'] != 0){
+                          loadingservice.close()
+                          ElementPlus.ElMessage.error(data['msg'] + ' (' + data['code'] + ')')
+                          $('#submit').removeAttr('disabled')
+                      }else{
+                          loadingservice.close()
+                          ElementPlus.ElMessage.success(data['msg'])
+                          $('#submit').removeAttr('disabled')
+                          window.location = '/myticket'
+                      }
+                  })
+              }
+              addimage.onclick = function(){
+                  var vnode = document.createElement('div')
+                  vnode.className = 'mdui-textfield mdui-textfield-floating-label'
+                  vnode.innerHTML = '<label class="mdui-textfield-label">请您在此键入图片链接</label><input class="mdui-textfield-input image-link" type="text"/>'
+                  imageContainer.appendChild(vnode)
+              }
+              </script>
+        </div>
+        </body>
